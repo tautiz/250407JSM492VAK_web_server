@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const session = require('express-session');
 const Post = require('./src/models/Post');
+const User = require('./src/models/User');
 const BlogController = require('./src/controllers/BlogController');
 const AboutController = require('./src/controllers/AboutController');
 const HomePageController = require('./src/controllers/HomePageController');
@@ -16,6 +18,34 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'labai slaptas raktas',
+    resave: false,
+    saveUninitialized: false
+}));
+
+// Middleware - perduodame vartotojo duomenis į visus views
+app.use(async (req, res, next) => {
+    // Pradinės reikšmės
+    res.locals.userId = null;
+    res.locals.userInitials = null;
+    
+    // Jei vartotojas prisijungęs
+    if (req.session.userId) {
+        try {
+            const user = await User.findById(req.session.userId);
+            if (user) {
+                res.locals.userId = req.session.userId;
+                // Sukuriame inicialus iš vardo ir pavardės
+                res.locals.userInitials = (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
+            }
+        } catch (err) {
+            console.log('Klaida gaunant vartotojo duomenis:', err);
+        }
+    }
+    
+    next();
+});
 
 const dbURI= "mongodb://localhost:27017/klases_darbas";
 mongoose.connect(dbURI).then(() => {
@@ -34,14 +64,9 @@ app.get('/blog/s/:slug', BlogController.getPostBySlug);
 
 app.get('/login', autorizationController.loginPage);
 app.get('/register', autorizationController.registerPage);
-
 app.post('/login', autorizationController.login);
-
-
-
-
-
-
+app.post('/register', autorizationController.register);
+app.get('/logout', autorizationController.logout);
 
 
 

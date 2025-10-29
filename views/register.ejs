@@ -1,32 +1,58 @@
-<%- include('partials/head', { title: 'Puslapis nerastas', activePage }) %>
+<%- include('partials/head', { title: 'Registracija', activePage }) %>
 <%- include('partials/header', { activePage }) %>
-
-<div class="layout">
-    <main class="content">
-        
-        <section class="section section-center">
+    <div class="auth-container">
+        <div class="auth-header">
             <h1>Registracija</h1>
-            <form action="/register" method="post">
+            <p>Sukurkite naują paskyrą</p>
+        </div>
+        
+        <form action="/register" method="post" class="auth-form">
+            <div class="form-row">
                 <div class="form-group">
-                    <label for="firstName">Vardas</label>
-                    <input type="text" id="firstName" name="firstName" required>
+                    <label for="firstName">
+                        <i class="icon">👤</i>
+                        Vardas
+                    </label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Jūsų vardas" required>
                 </div>
+                </div>
+                <div class="form-row">
                 <div class="form-group">
-                    <label for="lastName">Pavardė</label>
-                    <input type="text" id="lastName" name="lastName" required>
+                    <label for="lastName">
+                        <i class="icon">👤</i>
+                        Pavardė
+                    </label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Jūsų pavardė" required>
                 </div>
-                <div class="form-group">
-                    <label for="email">El-pašto adresas</label>
-                    <input type="text" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Slaptažodis</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn btn-gradient">Registracija</button>
-            </form>
-        </section>
-    </main>
-</div>
-
+            </div>
+            
+            <div class="form-group">
+                <label for="email">
+                    <i class="icon">📧</i>
+                    El-pašto adresas
+                </label>
+                <input type="email" id="email" name="email" placeholder="vardas@pavyzdys.lt" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">
+                    <i class="icon">🔒</i>
+                    Slaptažodis
+                </label>
+                <input type="password" id="password" name="password" placeholder="Sukurkite slaptažodį" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-gradient btn-full">
+                    Registruotis
+                </button>
+            </div>
+            
+            <div class="auth-links">
+                <p>Jau turite paskyrą? 
+                    <a href="/login" class="link">Prisijunkite</a>
+                </p>
+            </div>
+        </form>
+    </div>
 <%- include('partials/footer') %>
