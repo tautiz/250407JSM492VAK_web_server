@@ -1,0 +1,38 @@
+<%- include('partials/head', { title: post.title, activePage }) %>
+<%- include('partials/header', { activePage }) %>
+
+<div class="layout">
+    <main class="content">
+        <article class="post">
+            <header class="post-header">
+                <div class="post-eyebrow">Įžvalga</div>
+                <h1 class="post-title"><%= post.title %></h1>
+                <div class="post-meta">
+                    <span><%= post.date %></span>
+                    <span>•</span>
+                    <span><%= post.readTime %> min. skaitymo</span>
+                </div>
+            </header>
+            <section class="post-content">
+                <%- post.content %>
+            </section>
+            <div>
+                <h2>Komentarai</h2>
+                <% if (!post.comments || post.comments.length === 0) { %>
+                    <p>Šiuo metu komentarų nėra.</p>
+                <% } else { %>
+                    <% post.comments.forEach(function(comment) { %>
+                        <%- include('partials/comment', { comment }) %>
+                    <% }); %>
+                <% } %>
+            </div>
+            <footer class="post-footer">
+                <a href="/blog" class="btn btn-ghost">← Atgal į blogą</a>
+            </footer>
+        </article>
+    </main>
+
+    <%- include('partials/sidebar', { activePage }) %>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,14 @@
+<header class="topbar">
+    <div class="brand">
+        <span class="brand-icon">✦</span>
+        <span class="brand-name">NovaWave</span>
+    </div>
+    <nav class="top-nav">
+        <a href="/" class="nav-link <%= activePage === 'home' ? 'is-active' : '' %>" data-variant="primary">Pagrindinis</a>
+        <a href="/apie" class="nav-link <%= activePage === 'about' ? 'is-active' : '' %>" data-variant="primary">Apie</a>
+        <a href="/blog" class="nav-link <%= activePage === 'blog' ? 'is-active' : '' %>" data-variant="primary">Blogas</a>
+        <a href="/login" class="nav-link <%= activePage === 'login' ? 'is-active' : '' %>" data-variant="primary">Prisijungti</a>
+        <a href="/register" class="nav-link <%= activePage === 'register' ? 'is-active' : '' %>" data-variant="primary">Registracija</a>
+        <a href="/logout" class="nav-link <%= activePage === 'logout' ? 'is-active' : '' %>" data-variant="primary">Atsijungti</a>  
+    </nav>
+</header>

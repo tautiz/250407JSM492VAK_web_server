@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.1"
+  },
+  "scripts": {
+    "dev": "nodemon app.js"
+  }
+}

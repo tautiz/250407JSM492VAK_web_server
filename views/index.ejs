@@ -1,0 +1,69 @@
+<%- include('partials/head', { title: 'Pagrindinis', activePage }) %>
+<%- include('partials/header', { activePage }) %>
+
+<div class="layout">
+    <main class="content">
+        <section class="hero">
+            <div class="hero-badge">NovaWave Studio</div>
+            <h1 class="hero-title">Sveiki, <%= vardas %> – kurkime rytojaus skaitmeninę patirtį šiandien.</h1>
+            <p class="hero-subtitle">
+                Mes padedame verslams sukurti įtraukiančias, funkcionalias ir ambicingas skaitmenines platformas.
+            </p>
+            <div class="hero-actions">
+                <a href="/blog" class="btn btn-gradient">Peržiūrėti įžvalgas</a>
+                <a href="/apie" class="btn btn-ghost">Mūsų istorija</a>
+            </div>
+        </section>
+
+        <section class="feature-grid">
+            <article class="feature-card">
+                <h2>Strategija</h2>
+                <p>
+                    Analizuojame auditoriją, renkamės tinkamus kanalus ir kuriame augimui orientuotą veiksmų planą.
+                </p>
+                <span class="feature-tag">Analitika</span>
+            </article>
+            <article class="feature-card">
+                <h2>Produktas</h2>
+                <p>
+                    Projektuojame intuityvius, prieinamus produktus, kuriuos smagu naudoti kiekvieną dieną.
+                </p>
+                <span class="feature-tag">UX/UI</span>
+            </article>
+            <article class="feature-card">
+                <h2>Technologijos</h2>
+                <p>
+                    Modernios technologijos, mikroservisai ir debesijos sprendimai – jūsų sėkmei.
+                </p>
+                <span class="feature-tag">Inovacijos</span>
+            </article>
+        </section>
+
+        <section class="insight-section">
+            <div class="insight-headline">
+                <h2>Naujausios įžvalgos</h2>
+                <a href="/blog" class="link-cta">Visi straipsniai →</a>
+            </div>
+            <div class="insight-grid">
+                <% latestPosts.forEach(function(post) { %>
+                    <article class="insight-card">
+                        <div class="insight-meta">
+                            <span><%= post.date %></span>
+                            <span>•</span>
+                            <span><%= post.readTime %> min.</span>
+                        </div>
+                        <h3>
+                            <a href="/blog/<%= post.slug %>" class="link-ghost" aria-label="Skaityti: <%= post.title %>"><%= post.title %></a>
+                        </h3>
+                        <p><%= post.excerpt %></p>
+                        <a href="/blog/<%= post.slug %>" class="link-ghost">Skaityti</a>
+                    </article>
+                <% }) %>
+            </div>
+        </section>
+    </main>
+
+    <%- include('partials/sidebar', { activePage }) %>
+</div>
+
+<%- include('partials/footer') %>

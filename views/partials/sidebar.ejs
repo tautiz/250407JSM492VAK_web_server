@@ -1,0 +1,21 @@
+<aside class="sidebar">
+    <section class="sidebar-section">
+        <h2 class="sidebar-title">Navigacija</h2>
+        <div class="sidebar-links">
+            <a href="/" class="sidebar-link <%= activePage === 'home' ? 'is-active' : '' %>">Pagrindinis</a>
+            <a href="/apie" class="sidebar-link <%= activePage === 'about' ? 'is-active' : '' %>">Apie mus</a>
+            <a href="/blog" class="sidebar-link <%= activePage === 'blog' ? 'is-active' : '' %>">Blogas</a>
+        </div>
+    </section>
+    <section class="sidebar-section">
+        <h2 class="sidebar-title">Prenumeruokite</h2>
+        <form class="sidebar-form">
+            <label for="email" class="form-label">El. paštas</label>
+            <div class="form-field">
+                <input type="email" id="email" name="email" placeholder="jusu@pastas.lt" required />
+                <br/><br/>
+                <button type="submit" class="btn btn-gradient">Prisijungti</button>
+            </div>
+        </form>
+    </section>
+</aside>

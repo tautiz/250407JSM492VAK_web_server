@@ -1,0 +1,20 @@
+<%- include('partials/head', { title: 'Puslapis nerastas', activePage }) %>
+<%- include('partials/header', { activePage }) %>
+
+<div class="layout">
+    <main class="content">
+        <section class="section section-center">
+            <div class="error-code">404</div>
+            <h1 class="section-title">Atrodo, kad pasiklydote.</h1>
+            <p class="section-body">Puslapis, kurio ieškote, neegzistuoja arba buvo perkeltas.</p>
+            <div class="hero-actions">
+                <a href="/" class="btn btn-gradient">Grįžti į pradžią</a>
+                <a href="/blog" class="btn btn-ghost">Naršyti įžvalgas</a>
+            </div>
+        </section>
+    </main>
+
+    <%- include('partials/sidebar', { activePage }) %>
+</div>
+
+<%- include('partials/footer') %>

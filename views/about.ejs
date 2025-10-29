@@ -1,0 +1,58 @@
+<%- include('partials/head', { title: 'Apie mus', activePage }) %>
+<%- include('partials/header', { activePage }) %>
+
+<div class="layout">
+    <main class="content">
+        <section class="section">
+            <div class="section-eyebrow">Kas mes esame</div>
+            <h1 class="section-title">NovaWave kuria patirtis, kurios įkvepia judėti pirmyn.</h1>
+            <p class="section-body">
+                Mes esame tarpdisciplininė komanda, jungianti strategiją, dizainą ir technologijas. Nuolat eksperimentuojame,
+                kad padėtume prekės ženklams atrasti naujus ryšio būdus su savo auditorija.
+            </p>
+        </section>
+
+        <section class="section grid-two">
+            <article class="card">
+                <h2>Vizija</h2>
+                <p>
+                    Skatiname inovacijas Baltijos regione ir tikime, kad technologijos turi tarnauti žmonėms, o ne atvirkščiai.
+                </p>
+            </article>
+            <article class="card">
+                <h2>Vertybės</h2>
+                <ul class="values-list">
+                    <li>Atvirumas ir skaidrumas</li>
+                    <li>Nuolatinis tobulėjimas</li>
+                    <li>Žmogaus patirties prioritetas</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="team-section">
+            <div class="section-eyebrow">Komanda</div>
+            <h2 class="section-title">Strategai, dizaineriai ir inžinieriai</h2>
+            <div class="team-grid">
+                <article class="team-card">
+                    <div class="team-avatar" data-color="violet">AK</div>
+                    <h3>Austėja Kazlauskaitė</h3>
+                    <p>Produkto strategė</p>
+                </article>
+                <article class="team-card">
+                    <div class="team-avatar" data-color="cyan">MT</div>
+                    <h3>Mantas Tautkevičius</h3>
+                    <p>Vyriausias dizaineris</p>
+                </article>
+                <article class="team-card">
+                    <div class="team-avatar" data-color="amber">LR</div>
+                    <h3>Laura Rimkutė</h3>
+                    <p>Technologijų vadovė</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <%- include('partials/sidebar', { activePage }) %>
+</div>
+
+<%- include('partials/footer') %>

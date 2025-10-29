@@ -1,0 +1,36 @@
+<%- include('partials/head', { title: 'Blogas', activePage }) %>
+<%- include('partials/header', { activePage }) %>
+
+<div class="layout">
+    <main class="content">
+        <section class="section">
+            <div class="section-eyebrow">Įžvalgos</div>
+            <h1 class="section-title">Mūsų blogas</h1>
+            <p class="section-body">
+                Dalinamės patirtimis apie strategiją, dizainą ir technologijas, kurios formuoja ateitį šiandien.
+            </p>
+        </section>
+
+        <section class="blog-grid">
+            <% posts.forEach(function(post) { %>
+                <article class="blog-card">
+                    <div class="blog-meta">
+                        <span class="blog-date"><%= post.date %></span>
+                        <span class="blog-dot">•</span>
+                        <span class="blog-time"><%= post.readTime %> min. skaitymo</span>
+                    </div>
+                    <h2 class="blog-title">
+                        <a href="/blog/<%= post.slug %>" class="link-ghost" aria-label="Skaityti: <%= post.title %>"><%= post.title %></a>
+                    </h2>
+                    <p class="blog-excerpt"><%= post.excerpt %></p>
+                    <a href="/blog/<%= post._id %>" class="link-ghost">Skaityti daugiau (<%= post._id %>)</a>
+                    <a href="/blog/s/<%= post.slug %>" class="link-ghost">Skaityti daugiau (<%= post.slug %>)</a>
+                </article>
+            <% }); %>
+        </section>
+    </main>
+
+    <%- include('partials/sidebar', { activePage }) %>
+</div>
+
+<%- include('partials/footer') %>
