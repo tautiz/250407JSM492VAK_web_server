@@ -5,6 +5,11 @@
             <h1>Prisijungimas</h1>
             <p>Prisijunkite prie savo paskyros</p>
         </div>
+        <% if (typeof error !== 'undefined') { %>
+            <div class="error-message">
+                <%= error %>
+            </div>
+        <% } %>
         
         <form action="/login" method="post" class="auth-form">
             <div class="form-group">

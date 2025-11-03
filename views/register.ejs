@@ -5,7 +5,11 @@
             <h1>Registracija</h1>
             <p>Sukurkite naują paskyrą</p>
         </div>
-        
+        <% if (typeof error !== 'undefined') { %>
+            <div class="error-message">
+                <%= error %>
+            </div>
+        <% } %>
         <form action="/register" method="post" class="auth-form">
             <div class="form-row">
                 <div class="form-group">

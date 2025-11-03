@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 class AutorizationController {
     loginPage(req, res) {
@@ -17,21 +18,30 @@ class AutorizationController {
 
     login(req, res) {
         const { email, password } = req.body;
-        
+                
         // Paprasta paieška duombazėje
-        User.findOne({ email, password }).then((user) => {
+        User.findOne({ email }).then((user) => {
             if (user) {
+                const isPasswordValid = bcrypt.compareSync(password, user.password);
+
+                if (!isPasswordValid) {
+                    throw new Error('Neteisingas el. paštas arba slaptažodis');
+                }
                 // Pradedame sesiją - išsaugome vartotojo ID (Tai reiškia, kad vartotojas yra prisijungęs)
                 req.session.userId = user._id;
                 // ir pereiname į pagrindinį puslapį
                 res.redirect('/');
             } else {
-                res.redirect('/login');
+                throw new Error('Neteisingas el. paštas arba slaptažodis');
             }
         }).catch((err) => {
             console.log(err);
             // jei nepavyko prisijungti, pereiname į prisijungimo puslapį
-            res.redirect('/login');
+            res.status(400).render('login', {
+                title: 'Login',
+                activePage: 'login',
+                error: err.message
+            });
         });
     }
 
@@ -63,7 +73,23 @@ class AutorizationController {
             res.redirect('/');
         }).catch((err) => {
             console.log(err);
-            res.redirect('/register');
+            let KlaidosPranesimas = err.message;
+
+            if (err.code === 11000) {
+                KlaidosPranesimas = 'Vartotojas su tokiu el. paštu jau egzistuoja';
+            }
+            if (err.name === 'ValidationError') {
+                KlaidosPranesimas = 'Neteisingi duomenys';
+            }
+            
+            res.status(400).render(
+                'register',
+                {
+                    title: 'Register',
+                    activePage: 'register',
+                    error: KlaidosPranesimas
+                }
+            );
         });
     }
 }
