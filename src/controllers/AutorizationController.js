@@ -28,7 +28,14 @@ class AutorizationController {
                     throw new Error('Neteisingas el. paštas arba slaptažodis');
                 }
                 // Pradedame sesiją - išsaugome vartotojo ID (Tai reiškia, kad vartotojas yra prisijungęs)
-                req.session.userId = user._id;
+                req.session.user = {
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    role: user.role,
+                    _id: user._id
+                };
+
+                // req.session.user = user;
                 // ir pereiname į pagrindinį puslapį
                 res.redirect('/');
             } else {

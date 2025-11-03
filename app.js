@@ -10,6 +10,7 @@ const HomePageController = require('./src/controllers/HomePageController');
 const homePageController = new HomePageController();
 const AutorizationController = require('./src/controllers/AutorizationController');
 const autorizationController = new AutorizationController();
+const authMiddleware = require('./src/middlewares/auth');
 
 const app = express();
 const PORT = process.env.PORT || 80;
@@ -24,28 +25,8 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// Middleware - perduodame vartotojo duomenis į visus views
-app.use(async (req, res, next) => {
-    // Pradinės reikšmės
-    res.locals.userId = null;
-    res.locals.userInitials = null;
-    
-    // Jei vartotojas prisijungęs
-    if (req.session.userId) {
-        try {
-            const user = await User.findById(req.session.userId);
-            if (user) {
-                res.locals.userId = req.session.userId;
-                // Sukuriame inicialus iš vardo ir pavardės
-                res.locals.userInitials = (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
-            }
-        } catch (err) {
-            console.log('Klaida gaunant vartotojo duomenis:', err);
-        }
-    }
-    
-    next();
-});
+// // Middleware - perduodame vartotojo duomenis į visus views
+app.use(authMiddleware);
 
 const dbURI= "mongodb://localhost:27017/klases_darbas";
 mongoose.connect(dbURI).then(() => {
@@ -53,7 +34,7 @@ mongoose.connect(dbURI).then(() => {
 }).catch((err) => {
     console.log('Nepavyko prisijungti prie DB', err);
 });
-
+ 
 
 app.get('/', homePageController.homePage);
 app.get('/apie', AboutController.aboutPage);

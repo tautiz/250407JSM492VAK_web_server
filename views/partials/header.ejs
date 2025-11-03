@@ -13,6 +13,9 @@
             <!-- Vartotojas prisijungęs - rodom atsijungimą ir vartotojo informaciją -->
             <span class="user-initials">
                 <%= userInitials || 'U' %>
+                <% if(typeof isAdmin !== 'undefined' && isAdmin) { %>
+                    <span class="admin-badge">Admin</span>
+                <% } %>
             </span>
             <a href="/logout" class="nav-link" data-variant="primary">Atsijungti</a>
         <% } else { %>
