@@ -1,10 +1,17 @@
 const User = require('../models/User');
+const { verifyToken, getUserIDFromToken } = require('../services/JWTTokenService');
 
 const authMiddleware = async (req, res, next) => {
     // Pradinės reikšmės
     res.locals.userId = null;
     res.locals.userInitials = null;
-    console.log(req.session.user);
+
+    if(req.cookies.token && !verifyToken(req.cookies.token)){
+        throw new Error('Baigėsi prisijungimo sesija');
+    }
+    
+    req.session.user = {_id: getUserIDFromToken(req.cookies.token)};
+
     // Jei vartotojas prisijungęs
     if (req.session.user) {
         try {

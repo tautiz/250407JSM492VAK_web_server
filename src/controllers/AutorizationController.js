@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const { generateToken } = require('../services/JWTTokenService');
 
 class AutorizationController {
     loginPage(req, res) {
@@ -34,6 +35,17 @@ class AutorizationController {
                     role: user.role,
                     _id: user._id
                 };
+
+                const token = generateToken(user._id);
+                user.token = token;
+                user.save();
+                res.cookie('token', token, {
+                    maxAge: 1 * 60 * 60 * 1000,
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: 'strict'
+                });
+                // todo: issaugoti tokena userio DB
 
                 // req.session.user = user;
                 // ir pereiname į pagrindinį puslapį
@@ -75,7 +87,23 @@ class AutorizationController {
 
         newUser.save().then(() => {
             // Po vartotojo sukūrimo duomenų bazėje, iškart prisijungiame
-            req.session.userId = newUser._id;
+            req.session.user = {
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                role: newUser.role,
+                _id: newUser._id
+            };
+
+            const token = generateToken(newUser._id);
+            newUser.token = token;
+            newUser.save();
+            res.cookie('token', token, {
+                maxAge: 1 * 60 * 60 * 1000,
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict'
+            });
+
             // ir pereiname į pagrindinį puslapį
             res.redirect('/');
         }).catch((err) => {

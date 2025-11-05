@@ -12,6 +12,7 @@ const AutorizationController = require('./src/controllers/AutorizationController
 const autorizationController = new AutorizationController();
 const authMiddleware = require('./src/middlewares/auth');
 const HttpLogger = require('./src/middlewares/httpLogger');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const PORT = process.env.PORT || 80;
@@ -25,6 +26,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+app.use(cookieParser());
 
 app.use(HttpLogger);
 
@@ -52,7 +54,7 @@ app.post('/login', autorizationController.login);
 app.post('/register', autorizationController.register);
 app.get('/logout', autorizationController.logout);
 
-
+// app.get('/admin', autorizeMiddleware, adminController.adminPage);
 
 
 
