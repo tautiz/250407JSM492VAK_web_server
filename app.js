@@ -11,6 +11,7 @@ const homePageController = new HomePageController();
 const AutorizationController = require('./src/controllers/AutorizationController');
 const autorizationController = new AutorizationController();
 const authMiddleware = require('./src/middlewares/auth');
+const HttpLogger = require('./src/middlewares/httpLogger');
 
 const app = express();
 const PORT = process.env.PORT || 80;
@@ -24,6 +25,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+
+app.use(HttpLogger);
 
 // // Middleware - perduodame vartotojo duomenis į visus views
 app.use(authMiddleware);
