@@ -28,11 +28,12 @@ exports.getPostById =  (uzklausa, atsakas) => {
 exports.getPosts = (uzklausa, atsakas) => {
     Post.find()
     .then((posts) => {
-        return atsakas.render('blog', {
-            title: 'Blogas',
-            activePage: 'blog',
-            posts: posts
-        });
+        // return atsakas.render('blog', {
+        //     title: 'Blogas',
+        //     activePage: 'blog',
+        //     posts: posts
+        // });
+        return atsakas.json(posts);
     }).catch((err) => {
         return errorPage(response);
     });

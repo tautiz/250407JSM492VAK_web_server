@@ -13,6 +13,7 @@ const autorizationController = new AutorizationController();
 const authMiddleware = require('./src/middlewares/auth');
 const HttpLogger = require('./src/middlewares/httpLogger');
 const cookieParser = require('cookie-parser');
+const cors = require('./src/middlewares/cors');
 
 const app = express();
 const PORT = process.env.PORT || 80;
@@ -26,6 +27,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+
+// app.use(cors());
 app.use(cookieParser());
 
 app.use(HttpLogger);
@@ -44,7 +47,7 @@ mongoose.connect(dbURI).then(() => {
 app.get('/', homePageController.homePage);
 app.get('/apie', AboutController.aboutPage);
 app.get('/apie-mus', (req, res) => {res.redirect('/apie')});
-app.get('/blog', BlogController.getPosts);
+app.get('/news', cors, BlogController.getPosts);
 app.get('/blog/:id', BlogController.getPostById);
 app.get('/blog/s/:slug', BlogController.getPostBySlug);
 
